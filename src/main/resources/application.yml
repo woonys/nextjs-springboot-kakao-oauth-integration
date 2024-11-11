@@ -1,0 +1,52 @@
+spring:
+  mvc:
+    log-request-details: true
+  application:
+    name: gwansang-spring-ai-backend
+
+  datasource:
+    url: jdbc:h2:file:./data/fortunedb;MODE=PostgreSQL
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${client-id}
+            client-secret: ${client-secret}
+            redirect-uri: "http://localhost:3000/oauth2/redirect" # frontend URL에 해당
+            authorization-grant-type: authorization_code
+            scope:
+              - profile_nickname
+              - profile_image
+              - account_email
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+
+  server:
+    port: 8080
+    servlet:
+      context-path: /api

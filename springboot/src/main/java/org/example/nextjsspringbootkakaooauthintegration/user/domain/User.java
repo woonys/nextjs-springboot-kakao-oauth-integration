@@ -36,6 +36,8 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Provider provider;
 
+    private String providerId;
+
     private Role role = Role.USER;
 
     private String profileImage;
@@ -43,10 +45,11 @@ public class User extends BaseTimeEntity {
     private LocalDateTime lastLoginAt;
 
     @Builder
-    public User(String email, String nickname, Provider provider, String profileImage) {
+    public User(String email, String nickname, Provider provider, String providerId, String profileImage) {
         this.email = email;
         this.nickname = nickname;
         this.provider = provider;
+        this.providerId = providerId;
         this.profileImage = profileImage;
     }
 
